@@ -37,8 +37,11 @@ This project predicts flight ticket prices based on user input such as airline, 
 
 ### Backend
 
+
 1. Install Python dependencies:
     ```sh
+    python -m venv myenv
+    
     pip install -r requirements.txt
     ```
 2. Run the Flask server:
