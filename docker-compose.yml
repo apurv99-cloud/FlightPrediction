@@ -1,4 +1,4 @@
-# Example with improvements
+
 version: "3.8"
 services:
   mongo:
