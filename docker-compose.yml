@@ -1,3 +1,4 @@
+# Example with improvements
 version: "3.8"
 services:
   mongo:
@@ -5,33 +6,44 @@ services:
     restart: unless-stopped
     volumes:
       - mongo-data:/data/db
-    ports:
-      - "27017:27017"
+    networks:
+      - app-network
+    healthcheck:
+      test: ["CMD", "mongosh", "--eval", "db.adminCommand('ping')"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
 
   backend:
-    build:
-      context: ./backend
-      dockerfile: Dockerfile
+    image: rohitxten/flight_price_backend:latest
     depends_on:
-      - mongo
+      mongo:
+        condition: service_healthy
     environment:
       - MONGO_URI=mongodb://mongo:27017
       - DB_NAME=flightdb
       - MODEL_PATH=/app/model.pkl
     ports:
       - "5000:5000"
-    # uncomment for dev: mount source to container for live edits
-    volumes:
-      - ./backend:/app
+    networks:
+      - app-network
+    deploy:
+      resources:
+        limits:
+          memory: 512M
 
   frontend:
-    build:
-      context: ./frontend
-      dockerfile: Dockerfile
+    image: rohitxten/flight_price_frontend:latest
     depends_on:
       - backend
     ports:
       - "80:80"
+    networks:
+      - app-network
 
 volumes:
   mongo-data:
+
+networks:
+  app-network:
+    driver: bridge
