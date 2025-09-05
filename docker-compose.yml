@@ -1,0 +1,37 @@
+version: "3.8"
+services:
+  mongo:
+    image: mongo:6.0
+    restart: unless-stopped
+    volumes:
+      - mongo-data:/data/db
+    ports:
+      - "27017:27017"
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    depends_on:
+      - mongo
+    environment:
+      - MONGO_URI=mongodb://mongo:27017
+      - DB_NAME=flightdb
+      - MODEL_PATH=/app/model.pkl
+    ports:
+      - "5000:5000"
+    # uncomment for dev: mount source to container for live edits
+    volumes:
+      - ./backend:/app
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    depends_on:
+      - backend
+    ports:
+      - "80:80"
+
+volumes:
+  mongo-data:

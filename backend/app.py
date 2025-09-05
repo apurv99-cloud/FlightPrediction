@@ -45,6 +45,11 @@ def predict():
     except Exception as e:
         return jsonify({'error': str(e)}), 500
 
+@app.route('/api/health', methods=['GET'])
+def health():
+    return jsonify({"status": "ok"})
+
+
 if __name__ == '__main__':
     app.run(debug=True)
 
