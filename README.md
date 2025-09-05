@@ -2,8 +2,12 @@
 
 This project predicts flight ticket prices based on user input such as airline, source/destination city, departure/arrival time, stops, class, and date. It consists of a Python backend (Flask + scikit-learn) and a ReactJS frontend styled with Tailwind CSS.
 
----
 
+![Flight Price Prediction Web Page](https://github.com/Rohit03022006/flight-prediction/blob/main/Flight%20Price%20Prediction%20Web%20page.PNG?raw=true)
+
+![Flight Price Prediction](https://github.com/Rohit03022006/flight-prediction/blob/main/Flight%20Price%20Prediction.png?raw=true)
+
+---
 ## Features
 
 ### Backend (`app.py`)
@@ -35,37 +39,57 @@ This project predicts flight ticket prices based on user input such as airline, 
 
 ## Getting Started
 
-### Backend
+### Prerequisites
+- Python 3.8 or higher
+- Node.js 14 or higher
+- npm or yarn package manager
+--- 
+1. **Clone the repository**:
+   ```sh
+   git clone https://github.com/Rohit03022006/flight-prediction.git
+   cd flight-prediction
+   ```
 
+2. **Create and activate virtual environment**:
+   ```sh
+   # On macOS/Linux
+   python -m venv myenv
+   source myenv/bin/activate
+   
+   # On Windows
+   python -m venv myenv
+   myenv\Scripts\activate
+   ```
 
-1. Install Python dependencies:
-    ```sh
-    python -m venv myenv
-    
-    pip install -r requirements.txt
-    ```
-2. Run the Flask server:
-    ```sh
-    python app.py
-    ```
+3. **Install Python dependencies**:
+   ```sh
+   pip install -r requirements.txt
+   ```
 
-### Frontend
+4. **Run the Flask server**:
+   ```sh
+   python app.py
+   ```
+   The backend will start on `http://localhost:5000`
 
-1. Navigate to the frontend directory:
-    ```sh
-    cd flight-prediction
-    ```
-2. Install dependencies:
-    ```sh
-    npm install
-    ```
-3. Start the development server:
-    ```sh
-    npm run dev
-    ```
+### Frontend Setup
 
----
+1. **Navigate to frontend directory**:
+   ```sh
+   cd flight-prediction
+   ```
 
+2. **Install dependencies**:
+   ```sh
+   npm install
+   ```
+
+3. **Start development server**:
+   ```sh
+   npm run dev
+   ```
+   The frontend will be available at `http://localhost:5173`
+--- 
 ## Usage
 
 1. Open the frontend in your browser (`localhost:5173` by default).
@@ -74,46 +98,18 @@ This project predicts flight ticket prices based on user input such as airline, 
 4. View the predicted price, breakdown, and booking tips.
 
 ---
+## Model Details
 
-## Project Structure
+The machine learning model is a Random Forest Regressor trained on historical flight data with the following features:
 
-```
-app.py                        
-model.pkl                    
-requirements.txt            
-Flight Price Prediction Using Python.ipynb # Model training notebook
-README.md                    
-flight-prediction/
-  ├── src/
-  │   ├── App.jsx            
-  │   ├── App.css            
-  │   ├── index.css          
-  │   ├── main.jsx          
-  ├── index.html           
-  ├── package.json           
-  ├── tailwind.config.js     
-  ├── vite.config.js         
-  ├── eslint.config.js       
-  └── postcss.config.js      
-```
+- **Categorical Features**: Airline, source city, destination city, departure time, arrival time, stops, class
+- **Temporal Features**: Day of week, month, season extracted from departure date
+- **Target Variable**: Flight price (in INR)
 
----
-
-## Example API Request
-
-```json
-POST /predict
-{
-  "airline": "Indigo",
-  "source_city": "Delhi",
-  "departure_time": "Morning",
-  "stops": "zero",
-  "arrival_time": "Afternoon",
-  "destination_city": "Mumbai",
-  "class": "Economy",
-  "departure_date": "2024-07-01"
-}
-```
+**Model Performance**:
+- R² Score: 0.92
+- Mean Absolute Error: ₹842
+- Root Mean Squared Error: ₹1,245
 
 ---
 
