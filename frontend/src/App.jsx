@@ -1,3 +1,5 @@
+const API_URL = import.meta.env.VITE_API_URL;
+
 import React, { useState } from "react";
 import axios from "axios";
 import {
@@ -46,8 +48,9 @@ function FlightPricePredictor() {
     e.preventDefault();
     setLoading(true);
     try {
+      
       const response = await axios.post(
-        "http://127.0.0.1:5000/predict",
+        `${API_URL}/predict`,
         formData
       );
       setPrediction(response.data.prediction);
