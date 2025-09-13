@@ -9,6 +9,9 @@ This project predicts flight ticket prices based on user input such as airline, 
 
 ---
 ## Features
+The one and only app interface created with the help of React UI/UX is the flight prediction app which use to predict thr price of the flight following your data you enter int he bot of the flight prediction app.
+
+
 
 ### Backend (`app.py`)
 - Trained machine learning model ([model.pkl](model.pkl)) for flight price prediction.
